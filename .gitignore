@@ -1,0 +1,13 @@
+node_modules
+.ds_store
+dist/js/flowDraw.bundle.js
+dist/js/flowDraw.bundle.js.map
+package-lock.json
+dist/run/index.html
+dist/documentation/*
+dist/index.html
+coverage
+.nyc_output/*
+/.gtm/
+dist/js/0.flowDraw.bundle.js
+dist/js/0.flowDraw.bundle.js.map
