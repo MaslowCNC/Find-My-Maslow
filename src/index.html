@@ -47,12 +47,32 @@
 
 <script>
 
+var numberScanned = 0;
+var totalToScan = 0;
+var numberFound = 0;
+
 function reqListener (ipAddress, e) {
   console.log("IP address: " + ipAddress);
+  updatePercent();
   if(e.explicitOriginalTarget.response.includes("ESP")){
     console.log("ESP32 FOUND AT: " + ipAddress);
+    numberFound = numberFound + 1;
     var scanList = document.getElementById('scan_list')
     scanList.innerHTML = scanList.innerHTML + '<h1>Maslow found at <a href="' + ipAddress + '"> ' + ipAddress + '</a></h1>'
+  }
+}
+
+function updatePercent() {
+  numberScanned = numberScanned + 1;
+  console.log("Percent complete: " + 100*(numberScanned/totalToScan) + "%");
+  
+  var scanList = document.getElementById('scan_list')
+  const percentComplete = Math.round(100*(numberScanned/totalToScan));
+  scanList.innerHTML = scanList.innerHTML.replace(/\((.*?)\)/, '('+percentComplete+'%)')
+  
+  if(percentComplete >= 100 && numberFound == 0){
+    var scanList = document.getElementById('scan_list')
+    scanList.innerHTML = scanList.innerHTML + '<h1>No machines found</h1>'
   }
 }
 
@@ -68,18 +88,22 @@ function myFunction() {
     var welcome = document.createElement("div")
     welcome.setAttribute("style", "margin: 10px; text-align: center;")
     welcome.setAttribute("id", "scan_list");
-    welcome.innerHTML = '<p>Scanning 192.168.0.0 to 192.168.0.255</p><hr>'
+    welcome.innerHTML = '<p>Scanning 192.168.0.0 to 192.168.0.255 (0%)</p><hr>'
     
     popup.appendChild(welcome)
     
-    var ipIteration = 100;
+    var ipIteration = 0;
+    const maxIteration = 255;
+    totalToScan = maxIteration - ipIteration;
+    
     const ipPrefix = "http://192.168.0.";
-    while(ipIteration < 150){
+    while(ipIteration < maxIteration){
         const ipAddress = ipPrefix + ipIteration;
         console.log("Scanning: " + ipAddress);
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("load", (e)=> {reqListener(ipAddress, e)});
         xhr.open("GET", ipAddress, true);
+        xhr.addEventListener('error', updatePercent);
         xhr.send(null);
         ipIteration = ipIteration + 1;
     }
