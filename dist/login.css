@@ -176,7 +176,7 @@ animation-delay: 0s;
 }
 
 
-.form input {
+body input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -187,7 +187,7 @@ animation-delay: 0s;
   box-sizing: border-box;
   font-size: 14px;
 }
-.form button{
+body button{
   height:40px;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
