@@ -29,7 +29,7 @@
                 <p style= "padding: 0 20px">Find and connect to your Maslow.</p>
                 <form class="login-form">
                   <!--Credit to https://codepen.io/colorlib/pen/rxddKy -->
-                  <button type="button" onclick="myFunction()" id = "loginButton" style ="height: 40px;">Find My Maslow</button>
+                  <button type="button" onclick="startScan()" id = "loginButton" style ="height: 40px;">Find My Maslow</button>
                   <p class="message">This will scan your network and find connected Maslow machines.</p>
                 </form>
                 </div>
@@ -76,7 +76,7 @@ function updatePercent() {
   }
 }
 
-function myFunction() {
+function startScan() {
     
     var popup = document.getElementById('projects-popup')
     
@@ -96,7 +96,7 @@ function myFunction() {
     const maxIteration = 255;
     totalToScan = maxIteration - ipIteration;
     
-    const ipPrefix = "http://192.168.0.";
+    const ipPrefix = "http://192.168.8.";
     while(ipIteration < maxIteration){
         const ipAddress = ipPrefix + ipIteration;
         console.log("Scanning: " + ipAddress);
