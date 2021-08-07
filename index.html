@@ -88,7 +88,10 @@ function startScan() {
     var welcome = document.createElement("div")
     welcome.setAttribute("style", "margin: 10px; text-align: center;")
     welcome.setAttribute("id", "scan_list");
-    welcome.innerHTML = '<p>Scanning 192.168.0.0 to 192.168.0.255 (0%)</p><hr>'
+    
+    const ipPrefix = "http://192.168.1.";
+    
+    welcome.innerHTML = '<p>Scanning ' + ipPrefix + '.0 to '+ ipPrefix +'.255 (0%)</p><hr>'
     
     popup.appendChild(welcome)
     
@@ -96,7 +99,6 @@ function startScan() {
     const maxIteration = 255;
     totalToScan = maxIteration - ipIteration;
     
-    const ipPrefix = "http://192.168.8.";
     while(ipIteration < maxIteration){
         const ipAddress = ipPrefix + ipIteration;
         console.log("Scanning: " + ipAddress);
